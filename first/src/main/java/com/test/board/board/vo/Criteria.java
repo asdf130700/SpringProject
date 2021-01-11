@@ -9,7 +9,7 @@ public class Criteria {
 	
 	public Criteria() {
 		this.page = 1;
-		this.pageNum = 10;
+		this.pageNum = 15;
 	}
 	public int getPage() {
 		return page;

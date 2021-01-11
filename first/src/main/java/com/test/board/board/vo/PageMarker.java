@@ -10,7 +10,7 @@ public class PageMarker {
 	private int endPage;
 	private boolean prev;
 	private boolean next;
-	private int displayPageNum = 10;
+	private int displayPageNum = 15;
 	private Criteria cri;
 	
 	public int getTotalCount() {
@@ -73,7 +73,7 @@ public class PageMarker {
 		UriComponents uriComponents =
 		UriComponentsBuilder.newInstance()
 						    .queryParam("page", page)
-							.queryParam("perPageNum", cri.getPageNum())
+							.queryParam("PageNum", cri.getPageNum())
 							.build();
 		   
 		return uriComponents.toUriString();
