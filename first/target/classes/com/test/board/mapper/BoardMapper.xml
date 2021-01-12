@@ -4,67 +4,75 @@
 
 <mapper namespace="com.test.board.mapper.BoardMapper">
 	<!-- 게시판 리스트 -->
-<!-- 	<select id="list" resultType="com.test.board.board.vo.BoardVO">
-         	SELECT * 
-         	FROM BOARD
-         	ORDER BY NO DESC
- 		select  rownum rnum, no, title, writer, writeDate, hit
-	from board
-	order by no desc
-	</select> -->
-		<!-- 게시판 리스트 -->
+	<!-- <select id="list" resultType="com.test.board.board.vo.BoardVO"> SELECT 
+		* FROM BOARD ORDER BY NO DESC select rownum rnum, no, title, writer, writeDate, 
+		hit from board order by no desc </select> -->
+	<!-- 게시판 리스트 -->
 	<select id="list" resultType="com.test.board.board.vo.BoardVO">
-         	SELECT NO, TITLE, CONTENT, WRITER, WRITEDATE
-         	FROM(
-         	SELECT NO, TITLE, CONTENT, WRITER, WRITEDATE, 
-         	ROW_NUMBER() OVER(ORDER BY NO DESC) AS RNUM
-         	FROM BOARD
-         	)
-         	WHERE RNUM BETWEEN #{startRow} AND #{endRow}
-         	ORDER BY NO DESC
-<!-- 		select  rownum rnum, no, title, writer, writeDate, hit
-	from board
-	order by no desc -->
+		SELECT NO, TITLE, CONTENT, WRITER, WRITEDATE
+		FROM(
+		SELECT NO, TITLE, CONTENT, WRITER, WRITEDATE,
+		ROW_NUMBER() OVER(ORDER BY NO DESC) AS RNUM
+		FROM BOARD
+		WHERE 1 = 1
+		<include refid="search"></include>
+		)
+		WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+		ORDER BY NO DESC
+		<!-- select rownum rnum, no, title, writer, writeDate, hit from board order 
+			by no desc -->
 	</select>
 	<!-- 전체데이터의 갯수를 구하는 쿼리 -->
 	<!-- 전체데이터의 갯수를 구하는 쿼리 -->
 	<select id="getCount" resultType="Integer">
-	select count(*) from board where no > 0
+		select count(*) from board where 1 = 1
+		<include refid="search"></include>
+		AND no > 0
 	</select>
-		<!--게시판 글 보기 -->
-	<select id="view" parameterType="int" resultType="com.test.board.board.vo.BoardVO">
-	select NO, TITLE, CONTENT, WRITER, WRITEDATE, HIT 
-	from board
-	where no = #{no}
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">AND TITLE LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'c'.toString()">AND CONTENT LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'w'.toString()">AND WRITER LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'tc'.toString()">AND (TITLE LIKE '%' || #{keyword} || '%') or (CONTENT
+				LIKE '%' || #{keyword} || '%')</if>
+		</if>
+	</sql>
+	<!--게시판 글 보기 -->
+	<select id="view" parameterType="int"
+		resultType="com.test.board.board.vo.BoardVO">
+		select NO, TITLE, CONTENT, WRITER, WRITEDATE, HIT
+		from board
+		where no = #{no}
 	</select>
-	<insert id="insert" >
-	INSERT INTO BOARD(
-	NO,
-	TITLE,
-	CONTENT,
-	WRITER
-	)VALUES(
-	BOARD_SEQ.NEXTVAL,
-	#{title},
-	#{content},
-	#{writer})
+	<insert id="insert">
+		INSERT INTO BOARD(
+		NO,
+		TITLE,
+		CONTENT,
+		WRITER
+		)VALUES(
+		BOARD_SEQ.NEXTVAL,
+		#{title},
+		#{content},
+		#{writer})
 	</insert>
 	<!-- 조회수 증가 -->
-	<update id ="increase">
-	UPDATE BOARD
-	SET HIT = HIT + 1
-	WHERE NO = #{NO}	
+	<update id="increase">
+		UPDATE BOARD
+		SET HIT = HIT + 1
+		WHERE NO = #{NO}
 	</update>
-	<update id ="update">
-	UPDATE BOARD 
-	SET TITLE = #{title},
-	CONTENT = #{content},
-	WRITER = #{writer}
-	WHERE NO = #{no} 
+	<update id="update">
+		UPDATE BOARD
+		SET TITLE = #{title},
+		CONTENT = #{content},
+		WRITER = #{writer}
+		WHERE NO = #{no}
 	</update>
-	<delete id ="delete">
-	DELETE 
-	FROM BOARD
-	WHERE NO = #{no}
+	<delete id="delete">
+		DELETE
+		FROM BOARD
+		WHERE NO = #{no}
 	</delete>
-	</mapper>
+</mapper>

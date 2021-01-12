@@ -56,7 +56,9 @@ li {
 
 	});
 </script> -->
+
 </head>
+
 <body>
 	<div class="container">
 		<!-- 제목 -->
@@ -94,6 +96,7 @@ li {
 					<td>${list.hit}</td>
 				</tr>
 			</c:forEach>
+			<tr>
 			<td colspan="5">
 				<!-- get : 주소에 입력, a href, location.href --> <a href="write">
 					<button>글쓰기</button>
@@ -101,6 +104,26 @@ li {
 			</td>
 			</tr>
 		</table>
+		  <div class="search">
+    <select name="searchType">
+      <option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>-----</option>
+      <option value="t"<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
+      <option value="c"<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
+      <option value="w"<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>
+      <option value="tc"<c:out value="${scri.searchType eq 'tc' ? 'selected' : ''}"/>>제목+내용</option>
+    </select>
+
+    <input type="text" name="keyword" id="keywordInput" value="${scri.keyword}"/>
+
+    <button id="searchBtn" type="button">검색</button>
+        <script>
+      $(function(){
+        $('#searchBtn').click(function() {
+          self.location = "list" + '${pageMarker.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
+        });
+      });   
+    </script>
+    </div>
 		<div class="bottomNav">
 			<%-- 			<ul>
 				<c:if test="${pageMarker.prev}">
@@ -120,15 +143,15 @@ li {
 			</ul> --%>
 			<ul>
 				<li><c:if test="${pageMarker.prev}">
-						<a href="list${pageMarker.makeQuery(pageMarker.startPage - 1)}">이전</a>
+						<a href="list${pageMarker.makerSearch(pageMarker.startPage - 1)}">이전</a>
 					</c:if></li>
 				<li><c:forEach begin="${pageMarker.startPage}"
 						end="${pageMarker.endPage}" var="idx">
-						<a href="list${pageMarker.makeQuery(idx)}"><button
+						<a href="list${pageMarker.makerSearch(idx)}"><button class="btn btn-default"
 								id="list_btn">${idx}</button></a>
 					</c:forEach></li>
 				<li><c:if test="${pageMarker.next && pageMarker.endPage > 0}">
-						<a href="list${pageMarker.makeQuery(pageMarker.endPage + 1)}">다음</a>
+						<a href="list${pageMarker.makerSearch(pageMarker.endPage + 1)}">다음</a>
 					</c:if></li>
 			</ul>
 		</div>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.test.board.board.vo.BoardVO;
 import com.test.board.board.vo.Criteria;
+import com.test.board.board.vo.SearchCriteria;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO{
@@ -20,11 +21,12 @@ public class BoardDAOImpl implements BoardDAO{
 		sqlSession.insert("com.test.board.mapper.BoardMapper.insert", boardVO);
 		
 	}
-	@Override
-	public List<BoardVO> list(Criteria cri) throws Exception {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList("com.test.board.mapper.BoardMapper.list", cri);
-	}
+
+	/*
+	 * @Override public List<BoardVO> list(SearchCriteria scri) throws Exception {
+	 * // TODO Auto-generated method stub return
+	 * sqlSession.selectList("com.test.board.mapper.BoardMapper.list", scri); }
+	 */
 	@Override
 	public BoardVO view(int no) throws Exception {
 		// TODO Auto-generated method stub
@@ -41,10 +43,21 @@ public class BoardDAOImpl implements BoardDAO{
 		// TODO Auto-generated method stub
 		sqlSession.delete("com.test.board.mapper.BoardMapper.delete", no);
 	}
+
+	/*
+	 * @Override public int getCount() throws Exception { // TODO Auto-generated
+	 * method stub return
+	 * sqlSession.selectOne("com.test.board.mapper.BoardMapper.getCount"); }
+	 */
 	@Override
-	public int getCount() throws Exception {
+	public List<BoardVO> list(SearchCriteria scri) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("com.test.board.mapper.BoardMapper.getCount");
+		return sqlSession.selectList("com.test.board.mapper.BoardMapper.list", scri);
+	}
+	@Override
+	public int getCount(SearchCriteria scri) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("com.test.board.mapper.BoardMapper.getCount", scri);
 	}
 
 }

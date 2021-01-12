@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.test.board.board.vo.BoardVO;
 import com.test.board.board.vo.Criteria;
 import com.test.board.board.vo.PageMarker;
+import com.test.board.board.vo.SearchCriteria;
 import com.test.borad.service.BoardService;
 
 
@@ -46,17 +47,17 @@ public class BoardController {
 		
 		service.write(boardVO);
 		
-		return "redirect:/";
+		return "redirect:/board/list";
 	}
 	//게시판 목록보기
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model, Criteria cri) throws Exception{
+	public String list(Model model, SearchCriteria scri) throws Exception{
 		logger.info("list");
 		
-		model.addAttribute("list", service.list(cri));
+		model.addAttribute("list", service.list(scri));
 		PageMarker pageMarker = new PageMarker();
-		pageMarker.setCri(cri);
-		pageMarker.setTotalCount(service.getCount());
+		pageMarker.setCri(scri);
+		pageMarker.setTotalCount(service.getCount(scri));
 		
 		model.addAttribute("pageMarker", pageMarker);
 	

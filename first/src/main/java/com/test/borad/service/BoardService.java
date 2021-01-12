@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.test.board.board.vo.BoardVO;
 import com.test.board.board.vo.Criteria;
+import com.test.board.board.vo.SearchCriteria;
 import com.test.board.mapper.BoardMapper;
 
 
@@ -18,9 +19,9 @@ public interface BoardService {
 	  
 	  public void write(BoardVO boardVO) throws Exception;
 
-	  public List<BoardVO> list(Criteria cri) throws Exception;
+	  public List<BoardVO> list(SearchCriteria scri) throws Exception;
 	  
-	  public int getCount() throws Exception;
+	  public int getCount(SearchCriteria scri) throws Exception;
 
 	  public BoardVO view(int no) throws Exception;
 	  

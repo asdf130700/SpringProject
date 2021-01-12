@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.test.board.board.vo.BoardVO;
 import com.test.board.board.vo.Criteria;
+import com.test.board.board.vo.SearchCriteria;
 
 public interface BoardDAO {
 
@@ -11,9 +12,9 @@ public interface BoardDAO {
 	public void write(BoardVO boardVO) throws Exception;
 	
 	//게시글 목록 조회
-	public List<BoardVO> list(Criteria cri) throws Exception;
+	public List<BoardVO> list(SearchCriteria scri) throws Exception;
 	
-	public int getCount() throws Exception;
+	public int getCount(SearchCriteria scri) throws Exception;
 	
 	//게시물 조회
 	public BoardVO view(int no) throws Exception;
