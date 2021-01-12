@@ -60,4 +60,10 @@ public class BoardDAOImpl implements BoardDAO{
 		return sqlSession.selectOne("com.test.board.mapper.BoardMapper.getCount", scri);
 	}
 
+	@Override
+	public void increase(int no) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.update("com.test.board.mapper.BoardMapper.increase", no);
+	}
+
 }

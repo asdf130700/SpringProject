@@ -28,4 +28,6 @@ public interface BoardService {
 	  public void update(BoardVO boardVO) throws Exception;
 	  
 	  public void delete(int no) throws Exception;
+	  
+	  public void increase(int no) throws Exception;
 }

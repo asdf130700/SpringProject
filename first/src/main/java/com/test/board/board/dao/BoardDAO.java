@@ -24,4 +24,7 @@ public interface BoardDAO {
 	
 	//게시물 삭제
 	public void delete(int no) throws Exception;
+	
+	//조회수 증가
+	public void increase(int no) throws Exception;
 }
