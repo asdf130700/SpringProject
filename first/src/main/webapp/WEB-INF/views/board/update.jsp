@@ -28,11 +28,17 @@
 
 <script type="text/javascript">
 	$(function() {
-
 		// 글 리스트 중에 한줄을 클릭하면 게시판 글보기로 이동시키는 이벤트 처리
 		$(".cancelBtn").click(function() {
 			history.back();
 		});
+		$(".updateBtn")
+		.click(
+				function() {
+					location.href = "/board/list?page=${scri.page}"
+							+ "&pageNum=${scri.pageNum}"
+							+ "&searchType=${scri.searchType}&keyword=${scri.keyword}";
+				});
 	});
 </script>
 </head>

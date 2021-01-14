@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.test.board.board.vo.BoardVO;
 import com.test.board.board.vo.Criteria;
@@ -60,41 +63,55 @@ public class BoardController {
 		pageMarker.setTotalCount(service.getCount(scri));
 		
 		model.addAttribute("pageMarker", pageMarker);
+		model.addAttribute("scri", scri);
 	
 		
 		return "board/list";
 	}
 	// 게시판 조회
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
-	public String view(BoardVO boardVO, Model model) throws Exception{
+	public String view(BoardVO boardVO, @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception{
 		logger.info("view");
 		model.addAttribute("view", service.view(boardVO.getNo()));
+		model.addAttribute("scri", scri);
 		return "board/view";
 	}
 	// 게시판 수정화면
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String updateView(BoardVO boardVO, Model model) throws Exception{
+	public String updateView(BoardVO boardVO, @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception{
 		logger.info("update");
 		
 		model.addAttribute("update", service.view(boardVO.getNo()));
+		model.addAttribute("scri", scri);
 		return "board/update";
 	}
 	
 	// 게시판 수정
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String update(BoardVO boardVO) throws Exception{
+	public String update(BoardVO boardVO, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes rdattr) throws Exception{
 		logger.info("update");
 		
 		service.update(boardVO);
+		
+		rdattr.addAttribute("page", scri.getPage());
+		rdattr.addAttribute("pageNum", scri.getPageNum());
+		rdattr.addAttribute("searchType", scri.getSearchType());
+		rdattr.addAttribute("keyword", scri.getKeyword());
 		return "redirect:/board/list";
 	}
 
 	// 게시판 삭제
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String delete(BoardVO boardVO) throws Exception{
+	public String delete(BoardVO boardVO, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes rdattr) throws Exception{
 		logger.info("delete");
 		
 		service.delete(boardVO.getNo());
+		
+		rdattr.addAttribute("page", scri.getPage());
+		rdattr.addAttribute("pageNum", scri.getPageNum());
+		rdattr.addAttribute("searchType", scri.getSearchType());
+		rdattr.addAttribute("keyword", scri.getKeyword());
+		
 		return "redirect:/board/list";
 	}
 }
