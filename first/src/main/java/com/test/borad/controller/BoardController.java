@@ -1,5 +1,7 @@
 package com.test.borad.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -19,9 +21,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.test.board.board.vo.BoardVO;
 import com.test.board.board.vo.Criteria;
 import com.test.board.board.vo.PageMarker;
+import com.test.board.board.vo.ReplyVO;
 import com.test.board.board.vo.SearchCriteria;
 import com.test.borad.service.BoardService;
-
+import com.test.borad.service.ReplyService;
 
 import lombok.AllArgsConstructor;
 
@@ -35,6 +38,9 @@ public class BoardController {
 	
 	@Inject
 	BoardService service;
+	
+	@Inject
+	ReplyService replyService;
 	
 	// 게시판 글 작성 화면
 	@RequestMapping(value ="board/write", method = RequestMethod.GET)
@@ -74,6 +80,10 @@ public class BoardController {
 		logger.info("view");
 		model.addAttribute("view", service.view(boardVO.getNo()));
 		model.addAttribute("scri", scri);
+		
+		List<ReplyVO> replyList = replyService.viewReply(boardVO.getNo());
+		model.addAttribute("replyList", replyList);
+		
 		return "board/view";
 	}
 	// 게시판 수정화면

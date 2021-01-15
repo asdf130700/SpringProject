@@ -39,17 +39,19 @@
 	 });
 	 }); */
 	$(function() {
-		$("#deleteBtn").click(function() {
-			if (confirm("정말 삭제하시겠습니까?")) {
-				$("#deleteForm").submit();
-				
-			}
-			return;
-			location.href = "/board/list?page=${scri.page}"
-				+ "&pageNum=${scri.pageNum}"
-				+ "&searchType=${scri.searchType}&keyword=${scri.keyword}";
+		$("#deleteBtn")
+				.click(
+						function() {
+							if (confirm("정말 삭제하시겠습니까?")) {
+								$("#deleteForm").submit();
 
-		});
+							}
+							return;
+							location.href = "/board/list?page=${scri.page}"
+									+ "&pageNum=${scri.pageNum}"
+									+ "&searchType=${scri.searchType}&keyword=${scri.keyword}";
+
+						});
 		$("#listBtn")
 				.click(
 						function() {
@@ -58,12 +60,12 @@
 									+ "&searchType=${scri.searchType}&keyword=${scri.keyword}";
 						});
 		$("#updateBtn")
-		.click(
-				function() {
-					location.href = "/board/update?no=${view.no}&page=${scri.page}"
-							+ "&pageNum=${scri.pageNum}"
-							+ "&searchType=${scri.searchType}&keyword=${scri.keyword}";
-				});
+				.click(
+						function() {
+							location.href = "/board/update?no=${view.no}&page=${scri.page}"
+									+ "&pageNum=${scri.pageNum}"
+									+ "&searchType=${scri.searchType}&keyword=${scri.keyword}";
+						});
 	});
 </script>
 <body>
@@ -76,9 +78,9 @@
 		<!-- bootstrap 적용 : w3schools.com 
 		: 1. 라이브러리 등록 , 2.body안에 container 3. 그외필요한 객체 => tag 안에 class -->
 		<form name="viewForm" role="form" method="post">
-			<input type="hidden" id="no" name="no" value="${view.no}" /> 
-			<input type="hidden" id="page" name="page" value="${scri.page}">
-			<input type="hidden" id="pageNum" name="pageNum" value="${scri.pageNum}">
+			<input type="hidden" id="no" name="no" value="${view.no}" /> <input
+				type="hidden" id="page" name="page" value="${scri.page}"> <input
+				type="hidden" id="pageNum" name="pageNum" value="${scri.pageNum}">
 			<input type="hidden" id="searchType" name="searchType"
 				value="${scri.searchType}"> <input type="hidden"
 				id="keyword" name="keyword" value="${scri.keyword}">
@@ -111,13 +113,27 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-<!-- 				<a href="list" id="listBtn"><button>목록보기</button></a> -->
-<a href="#" id="listBtn"><button>목록보기</button></a>
-<a href="#" id="updateBtn"><button>수정하기</button></a> 
-<%-- 					<a href="update?no=${view.no }" id="updateBtn"><button>수정하기</button></a> 
- --%>					<a href="#" id="deleteBtn"><button>삭제하기</button></a>
+					<!-- 				<a href="list" id="listBtn"><button>목록보기</button></a> -->
+					<a href="#" id="listBtn"><button>목록보기</button></a> <a href="#"
+					id="updateBtn"><button>수정하기</button></a> <%-- 					<a href="update?no=${view.no }" id="updateBtn"><button>수정하기</button></a> 
+ --%> <a href="#" id="deleteBtn"><button>삭제하기</button></a>
 			</tr>
 		</table>
+	</div>
+	<!-- 댓글 -->
+	<div id="replyNav">
+		<ol class="replyList">
+			<c:forEach items="${replyList }" var="replyList">
+				<li>
+					<p>
+						작성자 : ${replyList.writer}<br /> 
+						작성 날짜 : <fmt:formatDate value="${replyList.writeDate}" pattern="yyyy-MM-dd" />
+					</p>
+
+					<p>${replyList.content}</p>
+				</li>
+			</c:forEach>
+		</ol>
 	</div>
 	<!-- 삭제를 위한 form tag : 보이지 않는다.-->
 	<form action="delete" method="post" id="deleteForm">
