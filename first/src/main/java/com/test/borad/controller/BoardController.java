@@ -124,5 +124,21 @@ public class BoardController {
 		
 		return "redirect:/board/list";
 	}
+	
+	//댓글작성
+	@RequestMapping(value = "/viewReply", method = RequestMethod.POST)
+	public String delete(ReplyVO vo, SearchCriteria scri, RedirectAttributes rdattr) throws Exception{
+		logger.info("writeReply");
+		
+		replyService.writeReply(vo);
+		
+		rdattr.addAttribute("no", vo.getNo());
+		rdattr.addAttribute("page", scri.getPage());
+		rdattr.addAttribute("pageNum", scri.getPageNum());
+		rdattr.addAttribute("searchType", scri.getSearchType());
+		rdattr.addAttribute("keyword", scri.getKeyword());
+		
+		return "redirect:/board/view";
+	}
 }
  

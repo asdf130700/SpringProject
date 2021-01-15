@@ -20,4 +20,10 @@ public class ReplyDAOimpl implements ReplyDAO{
 		return sql.selectList("com.test.board.mapper.ReplyMapper.viewReply", no);
 	}
 
+	@Override
+	public void writeReply(ReplyVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		sql.insert("com.test.board.mapper.ReplyMapper.writeReply", vo);
+	}
+
 }

@@ -8,7 +8,20 @@
 		resultType="com.test.board.board.vo.ReplyVO">
 		SELECT rno, content, writer, writeDate
 		FROM reply
-		where no = #{no}
+		where no =
+		#{no}
 	</select>
+	<insert id="writeReply">
+		INSERT INTO REPLY(
+		no
+		, rno
+		, content
+		, writer
+		)
+		VALUES( #{no}
+		, REPLY_SEQ.NEXTVAL
+		, #{content}
+		, #{writer} )
+	</insert>
 
 </mapper>

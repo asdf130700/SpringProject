@@ -20,9 +20,43 @@
 
 <style type="text/css">
 /* 마우스가 올라가면 배경과 커서 모양이 바뀌는 CSS */
+.rp_writer{
+text-align : center;
+margin:0px auto;
+width: 700px;
+height: 50px;
+}
+.rp_content{
+text-align : center;
+margin:0 auto;
+word-break:break-all;
+width:700px;
+height:100px;
+}
 .dataRow:hover {
 	background: #eee;
-	cursor: pointer;
+	cursor: pointer;	
+}
+.replyList{
+text-align : center;
+margin:0;
+
+}
+ul {
+	text-align: center;
+	margin: 0;
+}
+
+li {
+	display: inline-block;
+	list-style: none;
+	padding: 16px;
+	margin-right: 15px;
+	list-style: none;
+}
+
+#list_btn {
+	margin-right: 15px;
 }
 </style>
 </head>
@@ -66,6 +100,11 @@
 									+ "&pageNum=${scri.pageNum}"
 									+ "&searchType=${scri.searchType}&keyword=${scri.keyword}";
 						});
+		$(".replyWriteBtn").on("click", function(){
+			  var formObj = $("form[name='replyForm']");
+			  formObj.attr("action", "/board/viewReply");
+			  formObj.submit();
+			});
 	});
 </script>
 <body>
@@ -126,15 +165,32 @@
 			<c:forEach items="${replyList }" var="replyList">
 				<li>
 					<p>
-						작성자 : ${replyList.writer}<br /> 
+					작성자 : ${replyList.writer}
 						작성 날짜 : <fmt:formatDate value="${replyList.writeDate}" pattern="yyyy-MM-dd" />
-					</p>
+					</p><br /> 
 
 					<p>${replyList.content}</p>
 				</li>
 			</c:forEach>
 		</ol>
 	</div>
+	
+	<form name="replyForm" method="post">
+  <input type="hidden" id="no" name="no" value="${view.no}" />
+  <input type="hidden" id="page" name="page" value="${scri.page}"> 
+  <input type="hidden" id="pageNum" name="pageNum" value="${scri.pageNum}"> 
+  <input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"> 
+  <input type="hidden" id="keyword" name="keyword" value="${scri.keyword}"> 
+  <div>
+    <label for="writer">댓글 작성자</label><input type="text" class="rp_writer" id="writer" name="writer" />
+    <br/>
+    <label for="content">댓글 내용</label><input type="text"  class="rp_content" id="content" name="content" />
+  </div>
+  <div>
+ 	 <button type="submit" class="replyWriteBtn">작성</button>
+  </div>
+</form>
+	
 	<!-- 삭제를 위한 form tag : 보이지 않는다.-->
 	<form action="delete" method="post" id="deleteForm">
 		<input type="hidden" name="no" value="${view.no }" />
