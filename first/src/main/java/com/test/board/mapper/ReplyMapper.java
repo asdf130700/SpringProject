@@ -9,4 +9,10 @@ public interface ReplyMapper {
 	public List<ReplyVO> replyList();
 	
 	public ReplyVO viewReply(int no);
+	
+	public void updateReply(ReplyVO vo);
+	
+	public void deleteReply(ReplyVO vo);
+	
+	public ReplyVO selectReply(int rno);
 }

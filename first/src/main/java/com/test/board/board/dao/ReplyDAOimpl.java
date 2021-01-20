@@ -26,4 +26,23 @@ public class ReplyDAOimpl implements ReplyDAO{
 		sql.insert("com.test.board.mapper.ReplyMapper.writeReply", vo);
 	}
 
+	@Override
+	public void updateReply(ReplyVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		sql.update("com.test.board.mapper.ReplyMapper.updateReply", vo);
+		
+	}
+
+	@Override
+	public void deleteReply(ReplyVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		sql.delete("com.test.board.mapper.ReplyMapper.deleteReply", vo);
+	}
+
+	@Override
+	public ReplyVO selectReply(int rno) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectOne("com.test.board.mapper.ReplyMapper.viewReply", rno);
+	}
+
 }
