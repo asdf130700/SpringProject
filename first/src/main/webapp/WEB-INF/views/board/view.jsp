@@ -20,22 +20,28 @@
 
 <style type="text/css">
 /* 마우스가 올라가면 배경과 커서 모양이 바뀌는 CSS */
+.replyWriteBtn{
+width : 200px;
+height : 200px;
+}
 .rpform_write {
-	position: absolute;
-	width: 80%;
-	float: left;
+	width: 100%;
+	margin :0px auto;
 }
 
+.re_from{
+	width: 79%;
+	float: left;
+}
 .rp_wrt_btn {
-	position: absolute;
-	width: 15%;
+	width: 20%;
 	float: right;
 }
 
 .rp_write {
 	margin-left: auto;
 	margin-right: auto;
-	width: 1200px;
+width: 1200px;
 	height: 250px;
 	padding: 15px;
 	border: 1px solid gray;
@@ -253,9 +259,10 @@ li {
 					<input type="text" class="rp_writer" id="writer" name="writer" />
 					<br /> <label for="content">댓글 내용</label><br />
 					<input type="text" class="rp_content" id="content" name="content" />
-				</div>
+				</div >
 				<div class="rp_wrt_btn">
-					<button type="submit" class="replyWriteBtn">작성</button>
+				<br/>
+					<button type="submit" class="replyWriteBtn">댓글작성</button>
 				</div>
 			</form>
 		</div>
