@@ -30,20 +30,20 @@ public class ReplyServiceImpl implements ReplyService{
 	@Override
 	public void updateReply(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		dao.updateReply(vo);
+		 dao.updateReply(vo);
 		
 	}
 
 	@Override
 	public void deleteReply(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		dao.deleteReply(vo);
+			dao.deleteReply(vo);
 	}
 
-	@Override
-	public ReplyVO selectReply(int rno) throws Exception {
-		// TODO Auto-generated method stub
-		return dao.selectReply(rno);
-	}
-
+	
+	  @Override public ReplyVO selectReply(int rno) throws Exception { // TODO
+	  
+		  return dao.selectReply(rno); 
+	 
+	  }
 }

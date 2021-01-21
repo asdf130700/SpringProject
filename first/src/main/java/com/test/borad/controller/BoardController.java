@@ -1,5 +1,7 @@
 package com.test.borad.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.test.board.board.vo.BoardVO;
@@ -126,9 +129,9 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
-	//댓글작성
+	//댓글작성 POST 메소드
 	@RequestMapping(value = "/viewReply", method = RequestMethod.POST)
-	public String delete(ReplyVO vo, SearchCriteria scri, RedirectAttributes rdattr) throws Exception{
+	public String writeReply(ReplyVO vo, SearchCriteria scri, RedirectAttributes rdattr) throws Exception{
 		logger.info("writeReply");
 		
 		replyService.writeReply(vo);
@@ -143,66 +146,63 @@ public class BoardController {
 	}
 
 	//댓글 수정 GET
-		@RequestMapping(value="/replyUpdate", method = RequestMethod.GET)
-		public String updateReply(ReplyVO vo, SearchCriteria scri, Model model) throws Exception {
-			logger.info("updateReply");
-			
+	@RequestMapping(value="/replyUpdate", method = RequestMethod.GET)
+	public String replyUpdate(ReplyVO vo, SearchCriteria scri, Model model) throws Exception {
+		logger.info("reply Write");
 		
-				
-				model.addAttribute("updateReply", replyService.selectReply(vo.getRno()));
-				model.addAttribute("scri", scri);
-	
-			
-			return "board/replyUpdate";
-		}
+		model.addAttribute("replyUpdate", replyService.selectReply(vo.getRno()));
+		model.addAttribute("scri", scri);
+		
+		return "board/replyUpdate";
+	}
 		
 		//댓글 수정 POST
 		@RequestMapping(value="/replyUpdate", method = RequestMethod.POST)
 		public String updateReply(ReplyVO vo, SearchCriteria scri, RedirectAttributes radttr) throws Exception {
 			logger.info("updateReply");
 			
-			try{
-				replyService.updateReply(vo);
-			
-			
-			radttr.addAttribute("no", vo.getNo());
-			radttr.addAttribute("page", scri.getPage());
-			radttr.addAttribute("pageNum", scri.getPageNum());
-			radttr.addAttribute("searchType", scri.getSearchType());
-			radttr.addAttribute("keyword", scri.getKeyword());
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
+		
+					replyService.updateReply(vo);
+					
+					radttr.addAttribute("rno", vo.getRno());
+					radttr.addAttribute("no", vo.getNo());
+					radttr.addAttribute("page", scri.getPage());
+					radttr.addAttribute("pageNum", scri.getPageNum());
+					radttr.addAttribute("searchType", scri.getSearchType());
+					radttr.addAttribute("keyword", scri.getKeyword());
+
+		
+
 			return "redirect:/board/view";
 		}
 		
 		//댓글 삭제 GET
-			@RequestMapping(value="/replyDelete", method = RequestMethod.GET)
-			public String replyDeleteView(ReplyVO vo, SearchCriteria scri, Model model) throws Exception {
-				logger.info("reply Write");
-				
-				model.addAttribute("replyDelete", replyService.selectReply(vo.getRno()));
-				model.addAttribute("scri", scri);
-				
-
-				return "board/replyDelete";
-			}
+		@RequestMapping(value="/replyDelete", method = RequestMethod.GET)
+		public String replyDeleteView(ReplyVO vo, SearchCriteria scri, Model model) throws Exception {
+			logger.info("reply Write");
 			
-			//댓글 삭제
-			@RequestMapping(value="/replyDelete", method = RequestMethod.POST)
-			public String replyDelete(ReplyVO vo, SearchCriteria scri, RedirectAttributes rdattr) throws Exception {
-				logger.info("reply Write");
-				
-				replyService.deleteReply(vo);
-				
-				rdattr.addAttribute("no", vo.getNo());
-				rdattr.addAttribute("page", scri.getPage());
-				rdattr.addAttribute("pageNum", scri.getPageNum());
-				rdattr.addAttribute("searchType", scri.getSearchType());
-				rdattr.addAttribute("keyword", scri.getKeyword());
-				
-				return "redirect:/board/readView";
-			}	
-		 
+			model.addAttribute("replyDelete", replyService.selectReply(vo.getRno()));
+			model.addAttribute("scri", scri);
+			
+
+			return "board/replyDelete";
+		}
+		
+		//댓글 삭제
+		@RequestMapping(value="/replyDelete", method = RequestMethod.POST)
+		public String replyDelete(ReplyVO vo, SearchCriteria scri, RedirectAttributes rttr) throws Exception {
+			logger.info("reply Write");
+			
+			replyService.deleteReply(vo);
+			
+			rttr.addAttribute("no", vo.getNo());
+			rttr.addAttribute("page", scri.getPage());
+			rttr.addAttribute("pageNum", scri.getPageNum());
+			rttr.addAttribute("searchType", scri.getSearchType());
+			rttr.addAttribute("keyword", scri.getKeyword());
+			
+			return "redirect:/board/view";
+		}
+		
 }
  

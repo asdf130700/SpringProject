@@ -145,6 +145,7 @@ li {
 		//댓글 수정 View
 		$(".replyUpdateBtn").on("click", function(){
 			location.href = "/board/replyUpdate?no=${view.no}"
+
 							+ "&page=${scri.page}"
 							+ "&pageNum=${scri.pageNum}"
 							+ "&searchType=${scri.searchType}"
@@ -154,7 +155,7 @@ li {
 				
 	//댓글 삭제 View
 		$(".replyDeleteBtn").on("click", function(){
-			location.href = "/board/replyDelete?bno=${view.no}"
+			location.href = "/board/replyDelete?no=${view.no}"
 				+ "&page=${scri.page}"
 				+ "&pageNum=${scri.pageNum}"
 				+ "&searchType=${scri.searchType}"
@@ -215,6 +216,8 @@ li {
 			</tr>
 		</table>
 	</div>
+
+
 	<!-- 댓글 -->
 	<div id="replyNav">
 		<ol class="replyList">
@@ -257,6 +260,7 @@ li {
 			</form>
 		</div>
 	</ol>
+	
 
 	<!-- 삭제를 위한 form tag : 보이지 않는다.-->
 	<form action="delete" method="post" id="deleteForm">

@@ -17,55 +17,61 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 </head>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			var formObj = $("form[name='updateForm']");
-			
-			$(".cancel_btn").on("click", function(){
-				location.href = "/board/view?no=${replyUpdate.no}"
-					   + "&page=${scri.page}"
-					   + "&pageNum=${scri.pageNum}"
-					   + "&searchType=${scri.searchType}"
-					   + "&keyword=${scri.keyword}";
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				var formObj = $("form[name='updateForm']");
+
+				$(".cancel_btn").on(
+						"click",
+						function() {
+							location.href = "/board/view?no=${replyUpdate.no}"
+									+ "&page=${scri.page}"
+									+ "&pageNum=${scri.pageNum}"
+									+ "&searchType=${scri.searchType}"
+									+ "&keyword=${scri.keyword}";
+
+						})
+
 			})
-			
-		})
-		
-	</script>
-	<body>
-	
-		<div id="root">
-			<header>
-				<h1> 게시판</h1>
-			</header>
-			<hr />
-			
-			<section id="container">
-				<form name="updateForm" role="form" method="post" action="/board/replyUpdate">
-					<input type="hidden" name="no" value="${replyUpdate.no}" readonly="readonly"/>
-					<input type="hidden" id="rno" name="rno" value="${replyUpdate.rno}" />
-					<input type="hidden" id="page" name="page" value="${scri.page}"> 
-					<input type="hidden" id="pageNum" name="pageNum" value="${scri.pageNum}"> 
-					<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"> 
-					<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}"> 
-					<table>
-						<tbody>
-							<tr>
-								<td>
-									<label for="content">댓글 내용</label><input type="text" id="content" name="content" value="${replyUpdate.content}"/>
-								</td>
-									<td>
-									<label for="content">댓글 작성자</label><input type="text" id="content" name="content" value="${replyUpdate.writer}"/>
-								</td>
-							</tr>	
-							
-						</tbody>			
-					</table>
-					<div>
-						<button type="submit" class="update_btn">저장</button>
-						<button type="button" class="cancel_btn">취소</button>
-					</div>
-				</form>
-			</section>
-			<hr />
-		</div>
+</script>
+<body>
+
+	<div id="root">
+		<header>
+			<h1>게시판</h1>
+		</header>
+		<hr />
+
+		<section id="container">
+			<form name="updateForm" role="form" method="post"
+				action="/board/replyUpdate">
+				<input type="hidden" name="no" value="${replyUpdate.no}"
+					readonly="readonly" /> <input type="hidden" id="rno" name="rno"
+					value="${replyUpdate.rno}" /> <input type="hidden" id="page"
+					name="page" value="${scri.page}"> <input type="hidden"
+					id="pageNum" name="pageNum" value="${scri.pageNum}"> <input
+					type="hidden" id="searchType" name="searchType"
+					value="${scri.searchType}"> <input type="hidden"
+					id="keyword" name="keyword" value="${scri.keyword}">
+				<table>
+					<tbody>
+						<tr>
+							<td><label for="writer">댓글 작성자</label><input type="text"
+								id="writer" name="writer" value="${replyUpdate.writer}" /></td>
+						</tr>
+						<tr>
+							<td><label for="content">댓글 내용</label><input type="text"
+								id="content" name="content" value="${replyUpdate.content}" /></td>
+						</tr>
+
+					</tbody>
+				</table>
+				<div>
+					<button type="submit" class="update_btn">수정</button>
+					<button type="button" class="cancel_btn">취소</button>
+				</div>
+			</form>
+		</section>
+		<hr />
+	</div>

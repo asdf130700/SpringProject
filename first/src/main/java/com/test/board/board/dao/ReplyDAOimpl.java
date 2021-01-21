@@ -10,10 +10,11 @@ import org.springframework.stereotype.Repository;
 import com.test.board.board.vo.ReplyVO;
 
 @Repository
-public class ReplyDAOimpl implements ReplyDAO{
+public class ReplyDAOimpl implements ReplyDAO {
 
-	@Inject SqlSession sql;
-	
+	@Inject
+	SqlSession sql;
+
 	@Override
 	public List<ReplyVO> viewReply(int no) throws Exception {
 		// TODO Auto-generated method stub
@@ -30,7 +31,7 @@ public class ReplyDAOimpl implements ReplyDAO{
 	public void updateReply(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		sql.update("com.test.board.mapper.ReplyMapper.updateReply", vo);
-		
+
 	}
 
 	@Override
@@ -40,9 +41,10 @@ public class ReplyDAOimpl implements ReplyDAO{
 	}
 
 	@Override
-	public ReplyVO selectReply(int rno) throws Exception {
-		// TODO Auto-generated method stub
-		return sql.selectOne("com.test.board.mapper.ReplyMapper.viewReply", rno);
+	public ReplyVO selectReply(int rno) throws Exception { // TODO
+
+		return sql.selectOne("com.test.board.mapper.ReplyMapper.selectReply", rno);
+
 	}
 
 }
