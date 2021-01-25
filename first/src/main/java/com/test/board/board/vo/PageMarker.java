@@ -14,7 +14,7 @@ public class PageMarker {
 	private int endPage;
 	private boolean prev;
 	private boolean next;
-	private int displayPageNum = 15;
+	private int displayPageNum = 10;
 	private Criteria cri;
 	
 	public int getTotalCount() {
