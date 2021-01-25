@@ -11,8 +11,10 @@
 	<select id="list" resultType="com.test.board.board.vo.BoardVO">
 		SELECT NO, TITLE, CONTENT, WRITER, WRITEDATE, HIT
 		FROM(
-		SELECT NO, TITLE, CONTENT, WRITER, WRITEDATE, HIT,
-		ROW_NUMBER() OVER(ORDER BY NO DESC) AS RNUM
+		SELECT NO,
+		TITLE, CONTENT, WRITER, WRITEDATE, HIT,
+		ROW_NUMBER() OVER(ORDER BY NO
+		DESC) AS RNUM
 		FROM BOARD
 		WHERE 1 = 1
 		<include refid="search"></include>
@@ -61,13 +63,15 @@
 	<!-- 조회수 증가 -->
 	<update id="increase" parameterType="int">
 		UPDATE BOARD
-		SET HIT = HIT + 1
+		SET HIT = HIT +
+		1
 		WHERE NO = #{no}
 	</update>
 	<update id="update">
 		UPDATE BOARD
 		SET TITLE = #{title},
-		CONTENT = #{content},
+		CONTENT =
+		#{content},
 		WRITER = #{writer}
 		WHERE NO = #{no}
 	</update>
