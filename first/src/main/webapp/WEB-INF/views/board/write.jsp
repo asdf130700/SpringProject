@@ -43,7 +43,7 @@
 		<!-- 데이터 테이블 -->
 		<!-- bootstrap 적용 : w3schools.com 
 		: 1. 라이브러리 등록 , 2.body안에 container 3. 그외필요한 객체 => tag 안에 class -->
-		<form method="post" class="form-group" action="/board/write">
+		<form method="post" class="form-group" action="/board/write" enctype="multipart/form-data">
 			<table class="table">  
 				<tr>
 					<th>제목</th>
@@ -56,6 +56,10 @@
 				<tr>
 					<th>작성자</th>
 					<td><input class="form-control" name="writer" /></td>
+				</tr>
+								<tr>
+					<th>작성자</th>
+					<td><input type="file" name="file" /></td>
 				</tr>
 				<tr>
 					<td colspan="2">

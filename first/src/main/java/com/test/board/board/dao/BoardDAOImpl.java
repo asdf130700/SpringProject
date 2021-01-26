@@ -1,6 +1,7 @@
 package com.test.board.board.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -64,6 +65,12 @@ public class BoardDAOImpl implements BoardDAO{
 	public void increase(int no) throws Exception {
 		// TODO Auto-generated method stub
 		sqlSession.update("com.test.board.mapper.BoardMapper.increase", no);
+	}
+
+	@Override
+	public void insertFile(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.insert("com.test.board.mapper.BoardMapper.insertFile", map);
 	}
 
 }

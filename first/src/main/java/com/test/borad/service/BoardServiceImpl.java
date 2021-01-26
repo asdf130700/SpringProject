@@ -1,29 +1,42 @@
 package com.test.borad.service;
 
 import java.util.List;
+import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.test.board.board.dao.BoardDAO;
 import com.test.board.board.vo.BoardVO;
 import com.test.board.board.vo.Criteria;
 import com.test.board.board.vo.SearchCriteria;
+import com.test.board.util.FileUtils;
 
 
 @Service
 public class BoardServiceImpl implements BoardService {
 
+	@Resource(name="fileUtils")
+	private FileUtils fileUtils;
+	
 	@Inject
 	private BoardDAO dao;
 	
 	@Override
-	public void write(BoardVO boardVO) throws Exception {
+	public void write(BoardVO boardVO, MultipartHttpServletRequest mpRequest) throws Exception {
 		// TODO Auto-generated method stub
 		dao.write(boardVO);
+		
+		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(boardVO, mpRequest);
+		int size = list.size();
+		for(int i=0; i<size; i++) {
+			dao.insertFile(list.get(i));
+		}
 	}
 	@Override
 	public List<BoardVO> list(SearchCriteria scri) throws Exception{

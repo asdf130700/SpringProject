@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.test.board.board.vo.BoardVO;
 import com.test.board.board.vo.Criteria;
@@ -17,7 +18,7 @@ import com.test.board.mapper.BoardMapper;
 public interface BoardService {
 	  
 	  
-	  public void write(BoardVO boardVO) throws Exception;
+	  public void write(BoardVO boardVO, MultipartHttpServletRequest mpRequesst) throws Exception;
 
 	  public List<BoardVO> list(SearchCriteria scri) throws Exception;
 	  

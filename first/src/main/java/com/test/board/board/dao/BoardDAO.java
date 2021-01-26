@@ -1,6 +1,7 @@
 package com.test.board.board.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.test.board.board.vo.BoardVO;
 import com.test.board.board.vo.Criteria;
@@ -27,4 +28,6 @@ public interface BoardDAO {
 	
 	//조회수 증가
 	public void increase(int no) throws Exception;
+	
+	public void insertFile(Map<String, Object> map) throws Exception;
 }

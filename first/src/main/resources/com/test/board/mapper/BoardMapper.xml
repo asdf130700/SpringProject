@@ -48,7 +48,10 @@
 		from board
 		where no = #{no}
 	</select>
-	<insert id="insert">
+	<insert id="insert" parameterType="com.test.board.board.vo.BoardVO" useGeneratedKeys="true" keyProperty="no">
+	<selectKey keyProperty="no" resultType="int" order="BEFORE">
+	SELECT BOARD_SEQ.NEXTVAL FROM DUAL
+	</selectKey>
 		INSERT INTO BOARD(
 		NO,
 		TITLE,
@@ -59,6 +62,22 @@
 		#{title},
 		#{content},
 		#{writer})
+	</insert>
+	<!-- 첨부파일 -->
+	<insert id="insertFile" parameterType="hashMap">
+	INSERT INTO FILE_TABLE(
+	FNO,
+	NO,
+	ORIGIN_FILE_NAME,
+	STORED_FILE_NAME,
+	FILE_SIZE
+	)
+	VALUES(SEQ_FILE_NO.NEXTVAL,
+	#{NO},
+	#{ORIGIN_FILE_NAME},
+	#{STORED_FILE_NAME},
+	#{FILE_SIZE}
+	)
 	</insert>
 	<!-- 조회수 증가 -->
 	<update id="increase" parameterType="int">
